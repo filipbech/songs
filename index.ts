@@ -5,14 +5,35 @@ const typeDefs = gql`
   type Song {
     title: String
     author: String
-    verse: String
+    verse: String  
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
+  input SongInput {
+    title: String
+    author: String
+    verse: String  
+  }
+
+
+  interface MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+  }
+
+  type AddSongMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    song: Song
+  }
+
   type Query {
-    songs: [Song]
+    getSongs: [Song]
+  }
+
+  type Mutation {
+    addSong(song: SongInput): AddSongMutationResponse
   }
 `;
 
@@ -92,8 +113,21 @@ const songs = [
 
 const resolvers = {
     Query: {
-        songs: () => songs,
+        getSongs: () => {
+          return songs.sort()
+        },
     },
+    Mutation: {
+      addSong(_, {song}) {
+        
+        return  {
+          code: "200",
+          success: true,
+          message: "Song was added",
+          song
+        }
+      }
+    }
 };
 
 // The ApolloServer constructor requires two parameters: your schema
