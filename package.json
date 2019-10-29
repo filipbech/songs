@@ -1,0 +1,19 @@
+{
+  "name": "graphtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc --watch",
+    "serve": "nodemon build/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.9.7",
+    "graphql": "^14.5.8",
+    "nodemon": "^1.19.4",
+    "typescript": "^3.6.4"
+  }
+}
